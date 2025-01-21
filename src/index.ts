@@ -1,4 +1,4 @@
-import type { LogLayerPlugin, LogLayerPluginParams, PluginBeforeMessageOutParams } from "@loglayer/plugin";
+import type { ILogLayer, LogLayerPlugin, LogLayerPluginParams, PluginBeforeMessageOutParams } from "@loglayer/plugin";
 
 // LogLayerPluginParams provides the common options for the plugin
 export interface TimestampPluginOptions extends LogLayerPluginParams {
@@ -14,7 +14,7 @@ export function createTimestampPlugin(options: TimestampPluginOptions = {}): Log
     id: options.id,
     disabled: options.disabled,
     // Implement the onBeforeMessageOut lifecycle method
-    onBeforeMessageOut: ({ messages }: PluginBeforeMessageOutParams): string[] => {
+    onBeforeMessageOut: ({ messages }: PluginBeforeMessageOutParams, loglayer: ILogLayer): string[] => {
       const timestamp = options.format === "locale" ? new Date().toLocaleString() : new Date().toISOString();
 
       return messages.map((msg) => `[${timestamp}] ${msg}`);
