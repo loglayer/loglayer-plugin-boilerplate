@@ -14,7 +14,7 @@ export function createTimestampPlugin(options: TimestampPluginOptions = {}): Log
     id: options.id,
     disabled: options.disabled,
     // Implement the onBeforeMessageOut lifecycle method
-    onBeforeMessageOut: ({ messages }: PluginBeforeMessageOutParams, loglayer: ILogLayer): string[] => {
+    onBeforeMessageOut: ({ messages }: PluginBeforeMessageOutParams, _loglayer: ILogLayer): string[] => {
       const timestamp = options.format === "locale" ? new Date().toLocaleString() : new Date().toISOString();
 
       return messages.map((msg) => `[${timestamp}] ${msg}`);
